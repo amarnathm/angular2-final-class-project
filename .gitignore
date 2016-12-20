@@ -1,0 +1,6 @@
+**/node_modules
+
+# skip .js files. we are working with .ts files, .js files are generated automatically
+**/*.js
+**/*.js.map
+**/.DS_Store

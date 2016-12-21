@@ -12,6 +12,8 @@ import { PostsComponent } from './posts.component';
 import { NavBarComponent } from './nav-bar.component';
 import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AjaxService } from './ajax.service';
+import { ConfirmDeactivate } from './confirm-deactivate.service';
+import { IHasChanges } from './has-changes.interface';
 
 import { ngProjectRouting } from './app.routing';
 
@@ -32,8 +34,9 @@ import { ngProjectRouting } from './app.routing';
     NavBarComponent,
     ActiveLinkSRComponent,
     AddUserComponent,
+    
   ],
-  providers: [AjaxService ] ,
+  providers: [AjaxService, ConfirmDeactivate ] ,
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

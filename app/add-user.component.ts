@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { CanDeactivate } from '@angular/router';
 import { UserValidators } from './user-validators';
+import { IHasChanges } from './has-changes.interface';
 
 @Component({
 
     templateUrl: 'app/add-user.component.html'
    
 })
-export class AddUserComponent {
+export class AddUserComponent implements IHasChanges {
 
     addUserForm : FormGroup;
     
@@ -40,4 +42,13 @@ export class AddUserComponent {
         });
 
     }
+
+    hasChanges() {
+        if (this.addUserForm.dirty)
+            return true;
+        else
+            return false;
+        
+    }
+    
 }

@@ -13,4 +13,9 @@ export class AjaxService {
         return this._http.get(url).map(response => response.json());
     }
 
+    post(url: string, data: any): Observable<Object> {
+        return this._http.post(url, JSON.stringify(data))
+            .map(response =>  response.json() );
+    }
+
 }

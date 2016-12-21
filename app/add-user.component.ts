@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CanDeactivate } from '@angular/router';
+import { Router, CanDeactivate } from '@angular/router';
 import { UserValidators } from './user-validators';
 import { IHasChanges } from './has-changes.interface';
+import { AjaxService } from './ajax.service';
+
 
 @Component({
 
@@ -11,7 +13,10 @@ import { IHasChanges } from './has-changes.interface';
 })
 export class AddUserComponent implements IHasChanges {
 
-    addUserForm : FormGroup;
+    addUserForm: FormGroup;
+
+    // same value of url being repeated. TODO make it a constant 
+    private _url = 'http://jsonplaceholder.typicode.com/users';
     
     /*
         User
@@ -25,7 +30,10 @@ export class AddUserComponent implements IHasChanges {
             Zipcode
     */
 
-    constructor(fb: FormBuilder) {
+    constructor(fb: FormBuilder,
+        private _router: Router,
+        private _ajaxService: AjaxService)
+    {
         this.addUserForm = fb.group({
             user: fb.group({
                 name: ['', Validators.compose([ Validators.required ])],
@@ -49,6 +57,20 @@ export class AddUserComponent implements IHasChanges {
         else
             return false;
         
+    }
+
+    createUser() {
+        this._ajaxService.post(this._url, this.addUserForm.value)
+            .subscribe(response => {
+                console.log(response);
+                this._router.navigate(['/users']);
+            },
+            error => console.log(error)
+            , () => {
+                // complete   
+
+            }   
+
     }
     
 }

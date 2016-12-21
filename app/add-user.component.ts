@@ -35,12 +35,10 @@ export class AddUserComponent implements IHasChanges {
         private _ajaxService: AjaxService)
     {
         this.addUserForm = fb.group({
-            user: fb.group({
                 name: ['', Validators.compose([ Validators.required ])],
                 email: ['', Validators.compose([ Validators.required, UserValidators.isInvalidEmail, ])],
-                phone: ['']
+                phone: [''],
                 
-            }),
             address: fb.group({
                 street: [''],
                 suite: [''],

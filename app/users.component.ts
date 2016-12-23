@@ -19,8 +19,12 @@ import { Http } from '@angular/http';
             <tr *ngFor="let user of _users">
                 <td>{{ user.name }} </td>
                 <td>{{ user.email }} </td>
-                <td><i class="glyphicon glyphicon-edit"> </i></td>
-                <td><i class="glyphicon glyphicon-remove"> </i></td>
+                <td><a [routerLink]="['/edituser/' , user.id]"><i class="glyphicon glyphicon-edit"> </i></a></td>
+                <td>
+                    <i (click)="deleteUser(user)"
+                        class="glyphicon glyphicon-remove"> 
+                    </i>
+                </td>
             </tr>
         </table>
 
@@ -69,6 +73,61 @@ export class UsersComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    deleteUser(user: User) {
+        if (window.confirm("are you sure you want to delete " + user.name + "?")) {
+            // delete the user
+            this.deleteUserOptimistically (user);
+        }
+    }
+
+    indexOf(user) {
+        var searchTerm = user.id;
+        var index = -1;
+        for (var i = 0; i < this._users.length; i++) {
+            if (this._users[i].id == searchTerm) {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
+    }
+
+    deleteUserOptimistically(user) {
+        var index = this.indexOf(user);
+        if (index > 0) {
+            // delete the item at position == index
+            this._users.splice(index, 1);  // angular should remove the row
+            // now tell the server
+            var url = this._url + "/" + user.id;
+            // test delete a bogus user. this should fail -- works
+            // url = this._url + "/" + 1001;
+            this._ajaxService.delete(url).subscribe(
+                response => {
+                    console.log("delete success");
+                    console.log(user);
+                },
+                error => {
+                    console.log("delete failed at the server");
+                    console.log(user);
+                    // restore the user at position index
+                    // this will add user after deleting 0 items first
+                    
+                    // put a delay so you can see it -- works
+                    /*
+                     setTimeout(() => {
+                        this._users.splice(index, 0, user);
+                    }, 2000);
+                    */
+                    this._users.splice(index, 0, user);
+                },
+                () => {
+                    // completed
+                }
+            )
+        }
     }
 
 }

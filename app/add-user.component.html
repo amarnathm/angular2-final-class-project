@@ -13,21 +13,25 @@
 
     
 -->
-<h1>Add a User </h1>
+<h1>{{ _title }} </h1>
 <!-- adding some formatting, looking at Mosh's solution -->
 <div class="row">
     <div class="col-md-6 well">
 
-<form [formGroup]="addUserForm" (ngSubmit)="createUser()" >
+<form [formGroup]="addUserForm" (ngSubmit)="createOrEditUser()" >
     <fieldset>
         <legend>User</legend>
-        
+            <input 
+                type="hidden" 
+                formControlName="id"
+                [(ngModel)]="_user.id" >
             <div class="form-group">
                 <label for="name">Name</label>
                 <input 
                     type="text" 
                     class="form-control" 
                     formControlName="name"
+                    [(ngModel)]="_user.name"
                     >
                 <div *ngIf="addUserForm.get('name').touched && addUserForm.get('name').hasError('required')"
                     class="alert alert-danger" >
@@ -40,6 +44,7 @@
                 <input 
                     type="text" 
                     class="form-control" 
+                    [(ngModel)]="_user.email"
                     formControlName="email">
                 <div 
                     *ngIf="addUserForm.get('email').touched && addUserForm.get('email').errors">

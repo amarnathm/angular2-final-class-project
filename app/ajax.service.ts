@@ -18,4 +18,14 @@ export class AjaxService {
             .map(response =>  response.json() );
     }
 
+    put(url: string, data: any): Observable<Object> {
+        return this._http.put(url, JSON.stringify(data))
+            .map(response => response.json());
+    }
+
+    delete(url: string): Observable<Object> {
+        return this._http.delete(url)
+            .map(response => response.json());
+    }
+
 }

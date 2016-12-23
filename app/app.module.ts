@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
-import { NotFoundComponent } from './non-found.component';
+import { NotFoundComponent } from './not-found.component';
 import { UsersComponent } from './users.component';
 import { AddUserComponent } from './add-user.component';
 import { PostsComponent } from './posts.component';

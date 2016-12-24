@@ -5,9 +5,12 @@ import { AjaxService } from './ajax.service';
 
 @Component({
     template: ` <h1> Posts </h1>
+        
+    
     <div class="container-fluid">
       <div class="row">
         <div class="column col-sm-6">
+        <spinner [visible]="isLoading"> </spinner>
           <ul class="list-group">
             <li *ngFor="let post of _posts"
                         class="list-group-item">{{ post.title }}
@@ -24,6 +27,7 @@ export class PostsComponent implements OnInit, OnDestroy {
     _url = "http://jsonplaceholder.typicode.com/posts";
 
     subscription;
+    isLoading = true;
 
     constructor(private _ajaxService: AjaxService) { }
 
@@ -37,7 +41,10 @@ export class PostsComponent implements OnInit, OnDestroy {
 
     getPosts() {
         this._ajaxService.get(this._url).subscribe(
-            response => this._posts = <Post[]> response
+            response => {
+                this.isLoading = false;
+                this._posts = <Post[]>response;
+            }
         ), error => console.log(error)
         , () => {} // completed
     }

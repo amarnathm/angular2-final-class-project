@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
+import { SpinnerComponent } from './spinner.component';
 import { HomeComponent } from './home.component';
 import { NotFoundComponent } from './not-found.component';
 import { UsersComponent } from './users.component';
@@ -14,6 +15,8 @@ import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AjaxService } from './ajax.service';
 import { ConfirmDeactivate } from './confirm-deactivate.service';
 import { IHasChanges } from './has-changes.interface';
+
+
 
 import { ngProjectRouting } from './app.routing';
 
@@ -27,6 +30,7 @@ import { ngProjectRouting } from './app.routing';
   ],
   declarations: [
     AppComponent,
+    SpinnerComponent,
     HomeComponent,
     NotFoundComponent,
     UsersComponent,
@@ -34,6 +38,7 @@ import { ngProjectRouting } from './app.routing';
     NavBarComponent,
     ActiveLinkSRComponent,
     AddUserComponent,
+    
     
   ],
   providers: [AjaxService, ConfirmDeactivate ] ,

@@ -153,7 +153,7 @@ export class AddUserComponent implements IHasChanges, OnInit {
         this._ajaxService.put(url, this.addUserForm.value)
             .subscribe(response => {
                 console.log(response);
-                this._router.navigate['/users'];
+                this._router.navigate(['/users']);
             },
             error => {
                 console.log("error!");

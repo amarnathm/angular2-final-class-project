@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Post } from './post';
+import { PostDetailComponent } from './post-detail.component';
 
 import { AjaxService } from './ajax.service';
 
@@ -22,18 +23,8 @@ import { AjaxService } from './ajax.service';
         </div> <!-- column>
 
         <!-- detail panel, visible only if something is selected -->
-        <div *ngIf="selectedPost != null"
-            class="column col-sm-6">
-            <!-- bootstrap panel with header markup -->
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">{{ selectedPost?.title }}</h3>
-              </div>
-              <div class="panel-body">
-                {{ selectedPost?.body }}
-              </div>
-            </div>
-        </div>
+        <post-detail [post]="selectedPost"> </post-detail>
+
       </div> <!-- row -->
     </div>
     ` ,

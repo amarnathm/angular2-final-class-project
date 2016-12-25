@@ -10,6 +10,8 @@ import { NotFoundComponent } from './not-found.component';
 import { UsersComponent } from './users.component';
 import { AddUserComponent } from './add-user.component';
 import { PostsComponent } from './posts.component';
+import { PostDetailComponent } from './post-detail.component';
+import { CommentsComponent } from './comments.component';
 import { NavBarComponent } from './nav-bar.component';
 import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AjaxService } from './ajax.service';
@@ -38,6 +40,8 @@ import { ngProjectRouting } from './app.routing';
     NavBarComponent,
     ActiveLinkSRComponent,
     AddUserComponent,
+    PostDetailComponent,
+    CommentsComponent,
     
     
   ],

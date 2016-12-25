@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Post } from './post';
 import { PostDetailComponent } from './post-detail.component';
 
 import { AjaxService } from './ajax.service';
+import { User } from './user.interface';
 
 @Component({
     template: ` <h1> Posts </h1>
@@ -11,7 +12,13 @@ import { AjaxService } from './ajax.service';
     <div class="container-fluid">
       <div class="row">
         <div class="column col-sm-6">
-        <spinner [visible]="isLoading"> </spinner>
+        <spinner [visible]="postsLoading || usersLoading"> </spinner>
+        <select #u (change)="updatePosts(u.value)" >
+            <option value="">Select a user ...</option>
+            <option *ngFor="let user of _users; let ui = index;" [value]="user.id" >
+                {{ user.name }}
+            </option>
+        </select>
           <ul class="list-group posts">
             <li *ngFor="let post of _posts; let i = index;" 
                 [id]="post.id"
@@ -41,35 +48,61 @@ import { AjaxService } from './ajax.service';
         }
     `]
 })
-export class PostsComponent implements OnInit, OnDestroy { 
-    _posts: Post[];
+export class PostsComponent implements OnInit { 
+    private _posts: Post[];
+    private _users: User[];
 
-    _url = "http://jsonplaceholder.typicode.com/posts";
+    private _postsUrl = "http://jsonplaceholder.typicode.com/posts";
+    private _usersUrl = "http://jsonplaceholder.typicode.com/users";
 
-    subscription;
-    isLoading = true;
+   
+    postsLoading = true;
+    usersLoading = true;
 
     selectedPost: Post;
+    selectedUserId: number;
 
     constructor(private _ajaxService: AjaxService) { }
 
     ngOnInit() {
+        this.getUsers();
         this.getPosts();
-        this.selectedPost = null; 
     }
 
-    ngOnDestroy() {
-
+    updatePosts(userId: number) {
+        console.log("userId=" + userId);
+        this.selectedUserId = userId;
+        this.getPosts();
     }
 
     getPosts() {
-        this._ajaxService.get(this._url).subscribe(
+        this.postsLoading = true;
+
+        // posts for a specific userId:
+        // http://jsonplaceholder.typicode.com/posts?userId=1
+        var url = this.selectedUserId ?
+            this._postsUrl + "?userId=" + this.selectedUserId
+            : this._postsUrl;
+        this._ajaxService.get(url).subscribe(
             response => {
-                this.isLoading = false;
+                this.postsLoading = false;
                 this._posts = <Post[]>response;
             }
         ), error => console.log(error)
-        , () => {} // completed
+        , () => { }; // completed 
+        
+        this.selectedPost = null;
+    }
+
+    getUsers() {
+        this.usersLoading = true;
+        
+        this._ajaxService.get(this._usersUrl).subscribe(
+            response => {
+                this.usersLoading = false;
+                this._users = <User[]>response;         
+            }    
+        )
     }
     
     selectPost(event) {

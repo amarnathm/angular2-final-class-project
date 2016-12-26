@@ -17,7 +17,7 @@ import { ActiveLinkSRComponent } from './active-link-sr.component';
 import { AjaxService } from './ajax.service';
 import { ConfirmDeactivate } from './confirm-deactivate.service';
 import { IHasChanges } from './has-changes.interface';
-
+import { PaginationComponent } from './pagination.component';
 
 
 import { ngProjectRouting } from './app.routing';
@@ -42,6 +42,7 @@ import { ngProjectRouting } from './app.routing';
     AddUserComponent,
     PostDetailComponent,
     CommentsComponent,
+    PaginationComponent,
     
     
   ],

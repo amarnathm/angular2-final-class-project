@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Post } from './post';
 import { PostDetailComponent } from './post-detail.component';
+import { PaginationComponent } from './pagination.component';
 
 import { AjaxService } from './ajax.service';
 import { User } from './user.interface';
@@ -19,9 +20,16 @@ import { User } from './user.interface';
                 {{ user.name }}
             </option>
         </select>
+        <!-- pagination -->
+        <pagination 
+            *ngIf="numPages > 1"
+             [items]="_posts" 
+             [posts-change-count]="_postsChangeCount"
+             [page-size]="pageSize"
+             (change)="onPageChange($event)" ></pagination>
           <ul class="list-group posts">
-            <li *ngFor="let post of _posts; let i = index;" 
-                [id]="post.id"
+            <li *ngFor="let post of _currentPagePosts; let i = index;" 
+                id="{{ post.id }} "
                 (click)="selectPost2(i)"
                 class="list-group-item"
                 [class.active]="selectedPost?.id == post.id" >{{ post.title }}
@@ -61,6 +69,12 @@ export class PostsComponent implements OnInit {
 
     selectedPost: Post;
     selectedUserId: number;
+    pageSize: number = 5;
+    numPages: number;
+    // increment this when posts change because of updatePosts
+    _postsChangeCount = 1;
+    private _currentPagePosts: Post[];
+    private _currentPageNum;
 
     constructor(private _ajaxService: AjaxService) { }
 
@@ -87,11 +101,17 @@ export class PostsComponent implements OnInit {
             response => {
                 this.postsLoading = false;
                 this._posts = <Post[]>response;
+                this._postsChangeCount += 1;
+                this.computeNumPages();
+                this.selectedPost = null;
+                // reset start page to 1
+                this.computeCurrentPagePosts(1);
+                console.log(this._posts);
             }
         ), error => console.log(error)
         , () => { }; // completed 
         
-        this.selectedPost = null;
+        
     }
 
     getUsers() {
@@ -105,14 +125,44 @@ export class PostsComponent implements OnInit {
         )
     }
     
-    selectPost(event) {
-        var target = event.target || event.srcElement || event.currentTarget;
-        var idAttr = target.attributes.id;
-        this.selectedPost = this._posts[2];
-    }
 
     selectPost2(index) {
-        this.selectedPost = this._posts[index];
+        this.selectedPost = this._currentPagePosts[index];
+    }
+
+    private computeNumPages() {
+        if (this._posts)
+            this.numPages = this._posts.length / this.pageSize + this._posts.length % this.pageSize;
+        else
+            this.numPages = 1;    
+    }
+
+    onPageChange(event) {
+        var currentPage = event.value;
+        this.computeCurrentPagePosts(currentPage);
+    }
+
+    private computeCurrentPagePosts(currentPage) {
+        // if posts is empty
+        if (!this._posts) {
+            this._currentPagePosts = this._posts;
+            return;
+        }
+
+        // if pageSize is 10, currentPage is 1, start = 0;
+        var start = (currentPage - 1) * this.pageSize;
+
+        var end = start + this.pageSize;
+        if (this._posts && end >= this._posts.length)
+            end = this._posts.length;
+        
+        // copy the items from _posts from start to end, inclusive
+        var tmp: Post[] = [];
+        for (var i = start; i < end; i++) {
+            tmp.push(this._posts[i]);
+        }
+        this._currentPageNum = currentPage;
+        this._currentPagePosts = tmp;
     }
 
 }

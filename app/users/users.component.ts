@@ -1,7 +1,8 @@
-import { Component, Injectable , OnInit, OnDestroy } from '@angular/core';
-import { AjaxService } from './ajax.service';
-import { User } from './user.interface';
+import { Component, Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Http } from '@angular/http';
+import { AjaxService } from '../shared/ajax.service';
+import { User } from './user.interface';
+
 
 
 @Component({

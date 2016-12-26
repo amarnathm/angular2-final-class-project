@@ -1,10 +1,10 @@
 import { Router, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { NotFoundComponent } from './not-found.component';
-import { UsersComponent } from './users.component';
-import { PostsComponent } from './posts.component';
-import { AddUserComponent } from './add-user.component';
-import { ConfirmDeactivate } from './confirm-deactivate.service';
+import { UsersComponent } from './users/users.component';
+import { PostsComponent } from './posts/posts.component';
+import { AddUserComponent } from './users/add-user.component';
+import { ConfirmDeactivate } from './shared/confirm-deactivate.service';
 
 
 export const ngProjectRouting = RouterModule.forRoot([

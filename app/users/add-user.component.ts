@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, CanDeactivate, ActivatedRoute } from '@angular/router';
 import { UserValidators } from './user-validators';
-import { IHasChanges } from './has-changes.interface';
-import { AjaxService } from './ajax.service';
+import { IHasChanges } from '../shared/has-changes.interface';
+import { AjaxService } from '../shared/ajax.service';
 
 
 @Component({
 
-    templateUrl: 'app/add-user.component.html'
+    templateUrl: 'app/users/add-user.component.html'
    
 })
 export class AddUserComponent implements IHasChanges, OnInit {

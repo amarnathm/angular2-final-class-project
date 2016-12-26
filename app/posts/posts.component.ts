@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Post } from './post';
 import { PostDetailComponent } from './post-detail.component';
-import { PaginationComponent } from './pagination.component';
+import { PaginationComponent } from '../shared/pagination.component';
 
-import { AjaxService } from './ajax.service';
-import { User } from './user.interface';
+import { AjaxService } from '../shared/ajax.service';
+import { User } from '../users/user.interface';
 
 @Component({
     template: ` <h1> Posts </h1>

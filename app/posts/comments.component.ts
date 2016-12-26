@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Post, Comment } from './post';
-import { AjaxService } from './ajax.service';
-import { SpinnerComponent } from './spinner.component';
+import { AjaxService } from '../shared/ajax.service';
+import { SpinnerComponent } from '../shared/spinner.component';
 
 @Component({
     selector: 'comments' ,

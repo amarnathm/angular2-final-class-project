@@ -5,22 +5,19 @@ import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core
     template: `
     <nav aria-label="Page navigation">
         <ul class="pagination">
-            <li>
-                <a [class.disabled]="currentPage == 1" 
-                    (click)="navigateTo(1)"
-                    aria-label="Previous">
+            <li [class.disabled]="currentPage == 1" aria-label="Previous" >
+                <a (click)="navigateTo(1)" >
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li *ngFor="let page of pages; let i = index;" >
-                <a [class.active]="currentPage == (i+1)" (click)="navigateTo(i+1)"  >
-               {{ i+1 }}
+            <li *ngFor="let page of pages; let i = index;" 
+                [class.active]="currentPage == (i+1)" >
+                <a  (click)="navigateTo(i+1)"  >
+                    {{ i+1 }}
                 </a>
             </li>
-            <li>
-                <a [class.disabled]="currentPage == totalPages"
-                    (click)="navigateTo(totalPages)" 
-                    aria-label="Next">
+            <li [class.disabled]="currentPage == totalPages" aria-label="Next">
+                <a (click)="navigateTo(totalPages)" >
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

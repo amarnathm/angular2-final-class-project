@@ -69,7 +69,7 @@ export class PostsComponent implements OnInit {
 
     selectedPost: Post;
     selectedUserId: number;
-    pageSize: number = 5;
+    pageSize: number = 10;
     numPages: number;
     // increment this when posts change because of updatePosts
     _postsChangeCount = 1;

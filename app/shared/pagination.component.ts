@@ -6,7 +6,7 @@ import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core
     <nav aria-label="Page navigation">
         <ul class="pagination">
             <li [class.disabled]="currentPage == 1" aria-label="Previous" >
-                <a (click)="navigateTo(1)" >
+                <a (click)="navigateTo(currentPage-1)" >
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
@@ -17,7 +17,7 @@ import { Component, Input, Output, OnChanges, EventEmitter } from '@angular/core
                 </a>
             </li>
             <li [class.disabled]="currentPage == totalPages" aria-label="Next">
-                <a (click)="navigateTo(totalPages)" >
+                <a (click)="navigateTo(currentPage + 1)" >
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>

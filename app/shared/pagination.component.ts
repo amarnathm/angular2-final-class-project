@@ -51,7 +51,7 @@ export class PaginationComponent implements OnChanges {
         if (this.items) {
 
             // integer division
-            this.totalPages = this.items.length / this.pageSize;
+            this.totalPages = Math.floor(this.items.length / this.pageSize);
             // add 1 if there is a remainder
             if (this.items.length % this.pageSize > 0)
                 this.totalPages += 1;
